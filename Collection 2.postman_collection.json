@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "9edc0051-a03f-4bef-93c2-f23df8008566",
+		"name": "Collection 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {\r",
+							"    \r",
+							"  var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body contains access token\"] = responseBody.has(\"access_token\") === true;\r",
+							"  pm.collectionVariables.set(\"token\", data.access_token);\r",
+							"}\r",
+							"else {var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body doesn't contain access token:\" + responseBody] = false;\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/auth/access_token",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"auth",
+						"access_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {\r",
+							"    \r",
+							"  var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body contains id\"] = responseBody.has(\"id\") === true;\r",
+							"  pm.collectionVariables.set(\"task_id\", data.access_token);\r",
+							"}\r",
+							"else {var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body doesn't contain id:\" + responseBody] = false;\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"contentType\": \"Task\",\r\n    \"isUrgent\":false,\r\n    \"status\": \"created\",\r\n    \"parent\":null,\r\n    \"name\": \"ffff\",\r\n    \"isTemplate\":false,\r\n    \"owner\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000104\"\r\n    },\r\n    \"responsible\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000105\"\r\n    },\r\n    \"deadline\": null,\r\n    \"attaches\":[],\r\n    \"contractor\":null,\r\n    \"Category130CustomFieldDlyaTesta\":null,\r\n    \"Category130CustomFieldTest2\":null\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Staff Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {\r",
+							"    \r",
+							"  var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body contains access token\"] = responseBody.has(\"access_token\") === true;\r",
+							"  pm.collectionVariables.set(\"token\", data.access_token);\r",
+							"}\r",
+							"else {var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body doesn't contain access token:\" + responseBody] = false;\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/auth/access_token",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"auth",
+						"access_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"contentType\": \"Task\",\r\n    \"isUrgent\":false,\r\n    \"status\": \"accepted\",\r\n    \"parent\":null,\r\n    \"name\": \"ffff\",\r\n    \"isTemplate\":false,\r\n    \"owner\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000104\"\r\n    },\r\n    \"responsible\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000105\"\r\n    },\r\n    \"deadline\": null,\r\n    \"attaches\":[],\r\n    \"contractor\":null,\r\n    \"Category130CustomFieldDlyaTesta\":null,\r\n    \"Category130CustomFieldTest2\":null\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task{{task_id}}",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Done Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"contentType\": \"Task\",\r\n    \"isUrgent\":false,\r\n    \"status\": \"done\",\r\n    \"parent\":null,\r\n    \"name\": \"ffff\",\r\n    \"isTemplate\":false,\r\n    \"owner\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000104\"\r\n    },\r\n    \"responsible\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000105\"\r\n    },\r\n    \"deadline\": null,\r\n    \"attaches\":[],\r\n    \"contractor\":null,\r\n    \"Category130CustomFieldDlyaTesta\":null,\r\n    \"Category130CustomFieldTest2\":null\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task{{task_id}}",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Second Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {\r",
+							"    \r",
+							"  var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body contains access token\"] = responseBody.has(\"access_token\") === true;\r",
+							"  pm.collectionVariables.set(\"token\", data.access_token);\r",
+							"}\r",
+							"else {var data = JSON.parse(responseBody);\r",
+							"  tests[\"Response body doesn't contain access token:\" + responseBody] = false;\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/auth/access_token",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"auth",
+						"access_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"contentType\": \"Task\",\r\n    \"isUrgent\":false,\r\n    \"status\": \"completed\",\r\n    \"parent\":null,\r\n    \"name\": \"ffff\",\r\n    \"isTemplate\":false,\r\n    \"owner\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000104\"\r\n    },\r\n    \"responsible\": {\r\n        \"contentType\": \"Employee\",\r\n        \"id\": \"1000105\"\r\n    },\r\n    \"deadline\": null,\r\n    \"attaches\":[],\r\n    \"contractor\":null,\r\n    \"Category130CustomFieldDlyaTesta\":null,\r\n    \"Category130CustomFieldTest2\":null\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task{{task_id}}",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task{{task_id}}",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "OWM5MGU2NDYyODQwMDA0M2U4NjViZmM5YTI2NzhkYWE4OWFlOWJlMGM2NjMyN2Y2MzE5OWQxNjhjNzk3ZTUyYw"
+		},
+		{
+			"key": "task_id",
+			"value": ""
+		}
+	]
+}
